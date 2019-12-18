@@ -112,52 +112,23 @@ void loop()
 
    
 
- 
+ //--------------------------------------------------------------
 
-    Serial.print("B=");// printing name
-
- 
-
+   Serial.print("B=");// printing name
     digitalWrite(s2,LOW);
-
- 
-
     digitalWrite(s3,HIGH);// setting for BLUE color sensor
-
- 
-
     frequency = pulseIn(OutPut, LOW);// reading frequency
-
- 
-
     Serial.print(frequency);// printing BLUE color frequency
-
- 
-
     Serial.print("  ");
-
     Serial.println();
+    f[i]=frequency;
 
-    
-
-    if(frequency<15)
-
+    if(f[i]-f[i-1]<=20)
     {
-
-      Serial.println();
-
-      Serial.print("motor's rotation angle is");
-
-      Serial.print(i);
-
-      Serial.print("    ");
-
-      Serial.print(j);
-
-      Serial.println();
-
+      Serial.write(10); 
     }
-
+     
+ //--------------------------------------------------------------
     
 
     j+=30;
