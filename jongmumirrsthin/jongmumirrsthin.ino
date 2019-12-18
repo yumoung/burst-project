@@ -1,207 +1,221 @@
- int s0 = 3, s1 = 9, s2 = 5, s3 = 6, i = 0;
-
- 
-
-int OutPut = 2;
-
- 
-
-부호없는 int 주파수 = 0;
-
- 
-
 #include <AFMotor.h>
 
  
 
- 
-
-AF_ 스테퍼 st1 (42, 1);
+int s0=3,s1=4,s2=5,s3=6,i=0,j=0,k=0;
 
  
 
-AF_ 스테퍼 st2 (42, 2);
+int OutPut=2;
 
  
 
- 
-
-무효 설정 ()
+unsigned int frequency = 0;
 
  
+
+AF_Stepper st1(42,1);
+
+ 
+
+AF_Stepper st2(42,2);
+
+ 
+
+void setup()
 
 {
 
- 
-
-    Serial.begin (9600);
+   Serial.begin(9600);
 
  
 
-    pinMode (s0, OUTPUT);
+    pinMode(s0, OUTPUT);
 
  
 
-    핀 모드 (s1, OUTPUT); // PINS 3, 4, 5, 6으로서 OUTPUT
+    pinMode(s1, OUTPUT);//PINS 3, 4, 5, 6 as OUTPUT
 
  
 
-    pinMode (s2, OUTPUT);
+    pinMode(s2, OUTPUT);
 
  
 
-    pinMode (s3, OUTPUT);
+    pinMode(s3, OUTPUT);
 
  
 
-    pinMode (OutPut, INPUT); // PIN 10을 입력으로
-
- 
+    pinMode(OutPut, INPUT);//PIN 10 as input
 
  
 
  
 
-    digitalWrite (s0, HIGH);
+ 
+
+    digitalWrite(s0,HIGH);
 
  
 
-    digitalWrite (s1, LOW); // 주파수 선택을 20 %로 설정
+    digitalWrite(s1,LOW);//setting frequency selection to 20%
 
- 
+    
 
-    st1.setSpeed (100);
+   st1.setSpeed(100);
 
- 
+   
 
-    st2.setSpeed (100);
-
- 
+   st2.setSpeed(100);
 
 }
 
  
 
- 
-
- 
-
-무효 루프 ()
-
- 
+void loop()
 
 {
 
- 
+    st1.step(30,FORWARD, INTERLEAVE);//1번 스텝모터 10도씩 회전
 
-    st1.step(100,FORWARD, INTERLEAVE);//1번 스텝모터 10도씩 회전
+    for(k=1;k<=12;k++)
 
-    
+    {
 
-    st2.step(100,FORWARD, INTERLEAVE);//1번 스텝모터 10도씩 회전
-
-    
-
-    Serial.print ( "R ="); // 인쇄 이름
+    st2.step(30,FORWARD, INTERLEAVE);//1번 스텝모터 10도씩 회전
 
  
 
-    digitalWrite (s2, LOW);
+    /*Serial.print("R=");//printing name
 
  
 
-    RED 컬러 센서의 digitalWrite (s3, LOW); // setting
+    digitalWrite(s2,LOW);
 
  
 
-    주파수 = pulseIn (OutPut, LOW); // 판독 주파수
+    digitalWrite(s3,LOW);//setting for RED color sensor
 
  
 
-    Serial.print (frequency); // printing 빨간색 주파수
+    frequency = pulseIn(OutPut, LOW);//reading frequency
 
  
 
-    Serial.print ( "");
+    Serial.print(frequency);//printing RED color frequency
 
  
 
- 
+    Serial.print("  ");
+
+*/
 
    
 
  
 
-    Serial.print ( "B ="); // 인쇄 이름
+    Serial.print("B=");// printing name
 
  
 
-    digitalWrite (s2, LOW);
+    digitalWrite(s2,LOW);
 
  
 
-    BLUE 컬러 센서의 digitalWrite (s3, HIGH); // 설정
+    digitalWrite(s3,HIGH);// setting for BLUE color sensor
 
  
 
-    주파수 = pulseIn (OutPut, LOW); // 판독 주파수
+    frequency = pulseIn(OutPut, LOW);// reading frequency
 
  
 
-    Serial.print (frequency); // BLUE 색 주파수 인쇄
+    Serial.print(frequency);// printing BLUE color frequency
 
  
 
-    Serial.print ( "");
+    Serial.print("  ");
 
- 
+    Serial.println();
 
-    if (주파수 <100)
+    
+
+    if(frequency<15)
 
     {
 
-      Serial.print ( "모터의 회전 각도는 =");
+      Serial.println();
 
-      Serial.print (i);
+      Serial.print("motor's rotation angle is");
+
+      Serial.print(i);
+
+      Serial.print("    ");
+
+      Serial.print(j);
+
+      Serial.println();
 
     }
 
     
 
- 
+    j+=30;
 
-   
+    Serial.print("j=");
 
- 
+    Serial.print(j);
 
-    Serial.print ( "G ="); // 인쇄 이름
+    Serial.println();
 
- 
+    delay(100);
 
-    digitalWrite (s2, HIGH);
+    }
 
- 
-
-    초록색 센서의 digitalWrite (s3, HIGH); // 설정
+   i+=30;
 
  
 
-    주파수 = pulseIn (OutPut, LOW); // 판독 주파수
+  /*  Serial.print("G=");// printing name
 
  
 
-    Serial.print (frequency); // 초록색 주파수 인쇄
+    digitalWrite(s2,HIGH);
 
  
 
-    Serial.print ( "");
-
-    지연 (100);
+    digitalWrite(s3,HIGH);// setting for GREEN color sensor
 
  
 
-    Serial.println ();
+    frequency = pulseIn(OutPut, LOW);// reading frequency
 
-    i + = 100;
+ 
 
-}  
+    Serial.print(frequency);// printing GREEN color frequency
+
+ 
+
+    Serial.print("    ");
+
+ 
+
+    Serial.println();*/
+
+    if(i==360)
+
+    i=0;
+
+    if(j==360)
+
+    j=0;
+
+    Serial.print("i=");
+
+    Serial.print(i);
+
+    Serial.println();
+
+    
+
+}
