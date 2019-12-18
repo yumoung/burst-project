@@ -21,7 +21,7 @@ void draw(){
       myPort.write(2); // 1 is spin of t2
       delay(100);
       if(myPort.read()==100){ //when i get signal from aduino
-        //processing code of when i get color signal f
+        //processing code of when i get color signal from aduino
       }
     }
     delay(100);
