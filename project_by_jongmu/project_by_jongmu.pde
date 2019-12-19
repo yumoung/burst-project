@@ -1,14 +1,16 @@
 import processing.serial.*;
 // The serial port:
 Serial myPort;
-int t1 = 10, t2 = 10;  
+int t1 = 9, t2 = 18;  
 int[][] arr = new int[360][3];
 int[] att = new int[3]; // that theta_max
+float[] d = new float[3];
+float d0 = 30; 
 int i=0; 
 int j=0;
 
 void setup() {
-  frameRate(100);
+  frameRate(5);
   size(1000, 700);
   printArray(Serial.list());
   // Open the port you are using at the rate you want:
@@ -21,7 +23,6 @@ void draw() {
     j=0;
     i += t1;
   }
-  println("j "+j);
   background(0);
   fill(0, 0);
   stroke(255);
@@ -43,21 +44,28 @@ void draw() {
   switch(myPort.read()) {
       case 10: 
         arr[i][0] = j; 
+        stroke(255, 0, 0);
+        line(pos.x+p1.x, pos.y+p1.y, pos.x+p1.x+p2.x, pos.y+p1.y+p2.y);
         break;    //red
       case 20: 
         arr[i][1] = j; 
-        break;     //blue
-      case 30: 
-        arr[i][2] = j; 
+        stroke(0, 255, 0);
+        line(pos.x+p1.x, pos.y+p1.y, pos.x+p1.x+p2.x, pos.y+p1.y+p2.y);
         break;     //green
+      case 30: 
+        arr[i][2] = j;
+        stroke(0, 0, 255);
+        line(pos.x+p1.x, pos.y+p1.y, pos.x+p1.x+p2.x, pos.y+p1.y+p2.y);
+        break;     //blue
   }
   
   if(i >= 360){ // now, it's time to save theta_max and d!!
-    for(int  x=0; x<180; x+=t1){
-      for(int y=0; y<3; y++){
-        int z = (arr[x][y]+arr[x+180][y])%360;
-        if(att[y] < z) att[y] = z;
+    for(int  x=0; x<3; x++){
+      for(int y=0; y<180; y+=t1){
+        int z = (arr[y][x]+arr[y+180][x])%360;
+        if(att[x] < z) att[x] = z;
       }
+      d[x] = d0/tan(att[x]*PI/180);
     }
     delay(10000000);
   }
