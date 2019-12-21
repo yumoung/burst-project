@@ -22,6 +22,7 @@ void draw() {
   if (j >= 360) {
     j=0;
     i += t1;
+    myPort.write(2);
   }
   background(0);
   fill(0, 0);
