@@ -17,11 +17,11 @@ unsigned int frequency2 = 0;
 unsigned int frequency3 = 0;
  
 
-AF_Stepper st1(42,1);
+AF_DCMotor st1(1);
 
  
 
-AF_Stepper st2(42,2);
+AF_DCMotor st2(2);
 
 
 int x=10,y=10;
@@ -50,9 +50,9 @@ void setup()
 
     
 
-   st1.setSpeed(100);
+   st1.setSpeed(1);
 
-   st2.setSpeed(100);
+   st2.setSpeed(1);
 
 }
 
@@ -62,11 +62,18 @@ void loop()
 
 {
     if(Serial.read()==1)
-    st1.step(x,FORWARD, INTERLEAVE);//1번 스텝모터 18도씩 회전
-
+    {
+     st1.run(FORWARD);
+     delay(180);
+     st1.run(RELEASE);
+    }
+ 
     if(Serial.read()==2)
-    st2.step(y,FORWARD, INTERLEAVE);//1번 스텝모터 18도씩 회전
-
+    {
+     st2.run(FORWARD)
+      delay(180);
+     st1.run(RELEASE);
+    }
  
  
     digitalWrite(s2,LOW);
