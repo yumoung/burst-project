@@ -2,7 +2,7 @@ import processing.serial.*;
 // The serial port:
 Serial myPort;
 int t1 = 30, t2 = 30;  
-int[][] arr = new int[360][3];  //감지시 각도, [모터1의 각도][색] = [모터2 각도] 
+int[][] arr = new int[480][3];  //감지시 각도, [모터1의 각도][색] = [모터2 각도] 
 int[] att = new int[3]; // that theta_max   // r g b의 최대각 저장 배열
 float[] d = new float[3];  // 거리 
 float d0 = 30; //장치의 팔길이
