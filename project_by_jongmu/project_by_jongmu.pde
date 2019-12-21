@@ -19,11 +19,7 @@ void setup() {
 
 void draw() {
   background(0);
-  if (j >= 360) {
-    j=0;
-    i += t1;
-    myPort.write(1);
-  }
+
   background(0);
   fill(0, 0);
   stroke(255);
@@ -37,11 +33,13 @@ void draw() {
   line(pos.x, pos.y, pos.x+p1.x, pos.y+p1.y);
   ellipse(pos.x+p1.x, pos.y+p1.y, r/3, r/3);
   line(pos.x+p1.x, pos.y+p1.y, pos.x+p1.x+p2.x, pos.y+p1.y+p2.y);
-  delay(10);
-  j += t2;
-  myPort.write(2);
-  
+    
   switch(myPort.read()) {
+      case 1: 
+         j=0;
+         i += t1;
+      case 2:
+         j += t2;
       case 10: 
         arr[i][0] = j; 
         stroke(255, 0, 0);
