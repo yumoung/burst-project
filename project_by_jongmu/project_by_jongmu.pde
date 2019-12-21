@@ -37,7 +37,6 @@ void draw() {
   line(pos.x, pos.y, pos.x+p1.x, pos.y+p1.y);
   ellipse(pos.x+p1.x, pos.y+p1.y, r/3, r/3);
   line(pos.x+p1.x, pos.y+p1.y, pos.x+p1.x+p2.x, pos.y+p1.y+p2.y);
-  println(p1);
   delay(10);
   j += t2;
   myPort.write(2);
@@ -65,9 +64,12 @@ void draw() {
       for(int y=0; y<180; y+=t1){
         int z = (arr[y][x]+arr[y+180][x])%360;
         if(att[x] < z) att[x] = z;
+        println("theta: "+att[x]);
       }
       d[x] = d0/tan(att[x]*PI/180);
+      println("d[x]: "+d[x]);
     }
+    
     delay(10000000);
   }
   
